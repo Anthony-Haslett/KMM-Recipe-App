@@ -5,12 +5,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import com.haslett.food2forkkmm.Greeting
 import com.haslett.food2forkkmm.android.presentation.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 
-
-fun greet(): String {
-    return Greeting().greeting()
-}
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

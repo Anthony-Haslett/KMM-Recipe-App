@@ -1,13 +1,18 @@
 package com.haslett.food2forkkmm.android.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.HiltViewModelFactory
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.haslett.food2forkkmm.android.presentation.navigation.recipe_detail.RecipeDetailScreen
+import com.haslett.food2forkkmm.android.presentation.navigation.recipe_detail.RecipeDetailViewModel
 import com.haslett.food2forkkmm.android.presentation.navigation.recipe_list.RecipeListScreen
+import com.haslett.food2forkkmm.android.presentation.navigation.recipe_list.RecipeListViewModel
 
 @Composable
 fun Navigation() {
@@ -16,6 +21,8 @@ fun Navigation() {
         composable(
             route = Screen.RecipeList.route
         ) { navBackStackEntry ->
+            val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
+            val viewModel: RecipeListViewModel = viewModel("RecipeListViewModel", factory)
             RecipeListScreen(
                 onSelectedRecipe = { recipeId ->
                     navController.navigate(Screen.RecipeDetail.route + "/$recipeId")
@@ -29,7 +36,11 @@ fun Navigation() {
                 type = NavType.IntType
             })
         ) { navBackStackEntry ->
-            RecipeDetailScreen(recipeId = navBackStackEntry.arguments?.getInt("recipeId"))
+            val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
+            val viewModel: RecipeDetailViewModel = viewModel("RecipeDetailViewModel", factory)
+            RecipeDetailScreen(
+                recipeId = viewModel.recipeId.value
+            )
         }
     }
 }
