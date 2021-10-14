@@ -2,8 +2,8 @@ plugins {
     id(Plugins.androidApplication)
     kotlin(KotlinPlugins.android)
     kotlin(KotlinPlugins.kapt)
-    kotlin(KotlinPlugins.serialization) version Kotlin.version
     id(Plugins.hilt)
+    kotlin(KotlinPlugins.serialization) version Kotlin.version
 }
 
 android {
@@ -59,6 +59,7 @@ dependencies {
     kapt(Hilt.hiltCompiler)
     
     implementation(Kotlinx.datetime)
+    implementation(Ktor.android)
     
     debugImplementation(SquareUp.leakCanary)
 }

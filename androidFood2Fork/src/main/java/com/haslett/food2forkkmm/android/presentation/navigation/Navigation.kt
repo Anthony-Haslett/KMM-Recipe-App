@@ -14,6 +14,7 @@ import com.haslett.food2forkkmm.android.presentation.navigation.recipe_detail.Re
 import com.haslett.food2forkkmm.android.presentation.navigation.recipe_list.RecipeListScreen
 import com.haslett.food2forkkmm.android.presentation.navigation.recipe_list.RecipeListViewModel
 
+@ExperimentalStdlibApi
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -39,7 +40,7 @@ fun Navigation() {
             val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
             val viewModel: RecipeDetailViewModel = viewModel("RecipeDetailViewModel", factory)
             RecipeDetailScreen(
-                recipeId = viewModel.recipeId.value
+                recipe = viewModel.recipe.value
             )
         }
     }
