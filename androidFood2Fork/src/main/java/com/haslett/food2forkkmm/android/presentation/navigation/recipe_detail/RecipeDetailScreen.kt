@@ -11,6 +11,6 @@ fun RecipeDetailScreen(
     if (recipe == null) {
         Text("Unable to get details of this recipe...")
     } else {
-        Text("RecipeDetailScreen:  ${recipe.title}")
+        Text("${recipe.title}")
     }
 }
