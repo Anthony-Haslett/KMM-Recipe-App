@@ -16,24 +16,22 @@ import com.haslett.food2forkkmm.android.presentation.navigation.recipe_list.Reci
 
 @ExperimentalStdlibApi
 @Composable
-fun Navigation() {
+fun Navigation(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.RecipeList.route) {
-        composable(
-            route = Screen.RecipeList.route
-        ) { navBackStackEntry ->
+        composable(route = Screen.RecipeList.route) { navBackStackEntry ->
+            // in the future, the hilt-navigation-compose artifact will simplify this
             val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
             val viewModel: RecipeListViewModel = viewModel("RecipeListViewModel", factory)
             RecipeListScreen(
-                onSelectedRecipe = { recipeId ->
-                    navController.navigate(Screen.RecipeDetail.route + "/$recipeId")
+                onSelectRecipe = { recipeId ->
+                    navController.navigate("${Screen.RecipeDetail.route}/$recipeId")
                 }
             )
         }
-        
         composable(
             route = Screen.RecipeDetail.route + "/{recipeId}",
-            arguments = listOf(navArgument("recipeId"){
+            arguments = listOf(navArgument("recipeId") {
                 type = NavType.IntType
             })
         ) { navBackStackEntry ->

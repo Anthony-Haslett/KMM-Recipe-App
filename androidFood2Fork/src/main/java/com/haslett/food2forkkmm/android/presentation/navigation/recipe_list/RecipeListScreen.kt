@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RecipeListScreen(
-    onSelectedRecipe: (Int) -> Unit
+    onSelectRecipe: (Int) -> Unit
 ) {
     LazyColumn {
         items(100 ) { recipeId ->
@@ -20,7 +20,7 @@ fun RecipeListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                        onSelectedRecipe(recipeId)
+                        onSelectRecipe(recipeId)
                     }
             ){
                 Text(modifier = Modifier
