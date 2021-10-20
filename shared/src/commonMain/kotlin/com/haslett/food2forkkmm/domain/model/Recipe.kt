@@ -2,7 +2,7 @@ package com.haslett.food2forkkmm.domain.model
 
 import kotlinx.datetime.LocalDateTime
 
-data class Recipe(
+data class Recipe (
     val id: Int,
     val title: String,
     val publisher: String,

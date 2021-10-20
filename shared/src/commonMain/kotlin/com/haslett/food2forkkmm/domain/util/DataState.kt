@@ -3,15 +3,17 @@ package com.haslett.food2forkkmm.domain.util
 data class DataState<T>(
     val message: String? = null,
     val data: T? = null,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
 ) {
-
+    
     companion object {
+        
         fun <T> error(
             message: String,
-        ):DataState<T> {
+        ): DataState<T> {
             return DataState(
-                message = message
+                message = message,
+                data = null,
             )
         }
         
@@ -21,10 +23,10 @@ data class DataState<T>(
         ): DataState<T> {
             return DataState(
                 message = message,
-                data = data
+                data = data,
             )
         }
         
-        fun <T> loading() = DataState<T>(isLoading = true)
+        fun <T>loading() = DataState<T>(isLoading = true)
     }
 }

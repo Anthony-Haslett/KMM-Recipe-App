@@ -1,4 +1,4 @@
-package com.haslett.food2forkkmm.android.presentation.navigation.recipe_list
+package com.haslett.food2forkkmm.android.presentation.recipe_list
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

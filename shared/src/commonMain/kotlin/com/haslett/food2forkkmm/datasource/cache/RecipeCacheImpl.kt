@@ -1,16 +1,16 @@
 package com.haslett.food2forkkmm.datasource.cache
 
 import com.haslett.food2forkkmm.datasource.datasource.RecipeDatabase
-import com.haslett.food2forkkmm.datasource.network.RecipeServiceImpl.Companion.RECIPE_PAGINATION_SIZE
+import com.haslett.food2forkkmm.datasource.network.RecipeServiceImpl.Companion.RECIPE_PAGINATION_PAGE_SIZE
 import com.haslett.food2forkkmm.domain.model.Recipe
 import com.haslett.food2forkkmm.domain.util.DatetimeUtil
 
 class RecipeCacheImpl(
-    private val recipeDatabase: RecipeDatabase,
+    val recipeDatabase: RecipeDatabase,
     private val datetimeUtil: DatetimeUtil
-): RecipeCache {
+) : RecipeCache {
     
-    private val queries: RecipeDbQueries = recipeDatabase.recipeDbQueries
+    private var queries: RecipeDbQueries = recipeDatabase.recipeDbQueries
     
     override fun insert(recipe: Recipe) {
         queries.insertRecipe(
@@ -35,15 +35,15 @@ class RecipeCacheImpl(
     override fun search(query: String, page: Int): List<Recipe> {
         return queries.searchRecipes(
             query = query,
-            pageSize = RECIPE_PAGINATION_SIZE.toLong(),
-            offset = ((page - 1) * RECIPE_PAGINATION_SIZE).toLong()
+            pageSize = RECIPE_PAGINATION_PAGE_SIZE.toLong(),
+            offset = ((page - 1) * RECIPE_PAGINATION_PAGE_SIZE).toLong()
         ).executeAsList().toRecipeList()
     }
     
     override fun getAll(page: Int): List<Recipe> {
         return queries.getAllRecipes(
-            pageSize = RECIPE_PAGINATION_SIZE.toLong(),
-            offset = ((page - 1) * RECIPE_PAGINATION_SIZE).toLong()
+            pageSize = RECIPE_PAGINATION_PAGE_SIZE.toLong(),
+            offset = ((page - 1) * RECIPE_PAGINATION_PAGE_SIZE).toLong()
         ).executeAsList().toRecipeList()
     }
     

@@ -17,6 +17,10 @@ class DatetimeUtil
         return date.toInstant(TimeZone.UTC).toEpochMilliseconds().toDouble()
     }
     
+    fun convertDateToString(date: LocalDateTime?): String? {
+        return date?.toString()
+    }
+    
     // States: yesterday, today, tomorrow and everything else
     @ExperimentalStdlibApi
     fun humanizeDatetime(date: LocalDateTime?): String{

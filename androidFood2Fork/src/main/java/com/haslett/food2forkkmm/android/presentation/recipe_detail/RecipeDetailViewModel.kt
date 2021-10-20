@@ -1,4 +1,4 @@
-package com.haslett.food2forkkmm.android.presentation.navigation.recipe_detail
+package com.haslett.food2forkkmm.android.presentation.recipe_detail
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -10,7 +10,6 @@ import com.haslett.food2forkkmm.interactors.recipe_detail.GetRecipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalStdlibApi

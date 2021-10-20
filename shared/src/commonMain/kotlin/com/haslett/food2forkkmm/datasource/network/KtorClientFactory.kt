@@ -9,7 +9,7 @@ expect class KtorClientFactory() {
     fun build(): HttpClient
 }
 
-fun RecipeDto.toRecipe(): Recipe {
+fun RecipeDto.toRecipe(): Recipe{
     val datetimeUtil = DatetimeUtil()
     return Recipe(
         id = pk,
