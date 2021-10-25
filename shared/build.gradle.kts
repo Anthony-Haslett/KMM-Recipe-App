@@ -76,7 +76,7 @@ kotlin {
 
 sqldelight {
     database("RecipeDatabase") {
-        packageName = "com.haslett.food2forkkmm.datasource.datasource"
+        packageName = "com.haslett.food2forkkmm.datasource.cache"
         sourceFolders = listOf("sqldelight")
     }
 }

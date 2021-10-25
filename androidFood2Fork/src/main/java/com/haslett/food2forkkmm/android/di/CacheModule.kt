@@ -1,11 +1,8 @@
 package com.haslett.food2forkkmm.android.di
 
 import com.haslett.food2forkkmm.android.BaseApplication
-import com.haslett.food2forkkmm.datasource.cache.DriverFactory
-import com.haslett.food2forkkmm.datasource.cache.RecipeCache
-import com.haslett.food2forkkmm.datasource.cache.RecipeCacheImpl
-import com.haslett.food2forkkmm.datasource.cache.RecipeDatabaseFactory
-import com.haslett.food2forkkmm.datasource.datasource.RecipeDatabase
+import com.haslett.food2forkkmm.datasource.cache.*
+import com.haslett.food2forkkmm.datasource.cache.RecipeDatabase
 import com.haslett.food2forkkmm.domain.util.DatetimeUtil
 import dagger.Module
 import dagger.Provides
@@ -26,11 +23,11 @@ object CacheModule {
     @Singleton
     @Provides
     fun provideRecipeCache(
-        recipeDataBase: RecipeDatabase
+        recipeDatabase: RecipeDatabase,
     ): RecipeCache {
         return RecipeCacheImpl(
-            recipeDatabase = recipeDataBase,
-            datetimeUtil = DatetimeUtil()
+            recipeDatabase = recipeDatabase,
+            datetimeUtil = DatetimeUtil(),
         )
     }
 }

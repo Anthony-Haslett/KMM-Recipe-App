@@ -1,7 +1,6 @@
 package com.haslett.food2forkkmm.datasource.cache
 
 import android.content.Context
-import com.haslett.food2forkkmm.datasource.datasource.RecipeDatabase
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 

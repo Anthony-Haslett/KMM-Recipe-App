@@ -1,43 +1,45 @@
 package com.haslett.food2forkkmm.android.presentation.recipe_list
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.haslett.food2forkkmm.android.presentation.components.RecipeList
+import com.haslett.food2forkkmm.android.presentation.recipe_list.components.SearchAppBar
 import com.haslett.food2forkkmm.android.presentation.theme.AppTheme
+import com.haslett.food2forkkmm.presentation.recipe_list.RecipeListEvents
+import com.haslett.food2forkkmm.presentation.recipe_list.RecipeListState
 
 @OptIn(ExperimentalMaterialApi::class)
 @ExperimentalComposeUiApi
 @Composable
 fun RecipeListScreen(
-    onSelectRecipe: (Int) -> Unit
+    state: RecipeListState,
+    onTriggerEvent: (RecipeListEvents) -> Unit,
+    onClickRecipeListItem: (Int) -> Unit
 ) {
     AppTheme(displayProgressBar = false) {
-        LazyColumn {
-            items(100) { recipeId ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            onSelectRecipe(recipeId)
-                        }
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(16.dp),
-                        style = MaterialTheme.typography.h2,
-                        text = "RecipeId = ${recipeId}"
-                    )
+        
+        Scaffold(topBar = {
+            SearchAppBar(
+                query = state.query,
+                onQueryChange = {
+                    onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
+                },
+                onExecuteSearch = {
+                    onTriggerEvent(RecipeListEvents.NewSearch)
                 }
-            }
+            )
+        }) {
+            RecipeList(
+                loading = state.isLoading,
+                recipes = state.recipes,
+                page = state.page,
+                onTriggerNextPage = {
+                    onTriggerEvent(RecipeListEvents.NextPage)
+                },
+                onClickRecipeListItem = onClickRecipeListItem
+            )
         }
     }
 }

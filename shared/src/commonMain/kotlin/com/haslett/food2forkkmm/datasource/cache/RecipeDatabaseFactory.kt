@@ -1,6 +1,5 @@
 package com.haslett.food2forkkmm.datasource.cache
 
-import com.haslett.food2forkkmm.datasource.datasource.RecipeDatabase
 import com.haslett.food2forkkmm.domain.model.Recipe
 import com.haslett.food2forkkmm.domain.util.DatetimeUtil
 import com.squareup.sqldelight.db.SqlDriver

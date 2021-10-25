@@ -4,6 +4,7 @@ import com.haslett.food2forkkmm.datasource.cache.RecipeCache
 import com.haslett.food2forkkmm.datasource.network.RecipeService
 import com.haslett.food2forkkmm.domain.model.Recipe
 import com.haslett.food2forkkmm.domain.util.DataState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.lang.Exception
@@ -22,6 +23,9 @@ class SearchRecipes(
                 page = page,
                 query = query,
             )
+            
+            delay(500)
+            
             // insert into cache
             recipeCache.insert(recipes)
             
