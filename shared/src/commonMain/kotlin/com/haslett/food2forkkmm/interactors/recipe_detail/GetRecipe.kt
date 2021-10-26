@@ -4,6 +4,7 @@ import com.haslett.food2forkkmm.datasource.cache.RecipeCache
 import com.haslett.food2forkkmm.datasource.network.RecipeService
 import com.haslett.food2forkkmm.domain.model.Recipe
 import com.haslett.food2forkkmm.domain.util.DataState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -18,6 +19,8 @@ class GetRecipe (
     ): Flow<DataState<Recipe>> = flow {
         try {
             emit(DataState.loading())
+            
+            delay(2000)
             
             val recipe =  recipeCache.get(recipeId)
             
