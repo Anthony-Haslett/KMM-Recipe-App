@@ -26,6 +26,10 @@ class SearchRecipes(
             
             delay(500)
             
+            if(query == "error") {
+                throw Exception("Forcing an error. SEARCH FAILED")
+            }
+            
             // insert into cache
             recipeCache.insert(recipes)
             

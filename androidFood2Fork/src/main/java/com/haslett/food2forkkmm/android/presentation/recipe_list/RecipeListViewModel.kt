@@ -91,8 +91,10 @@ constructor(
         state.value = state.value.copy(recipes = current)
     }
     
-    private fun handleError(s: String) {
-        TODO("Handle errors")
+    private fun handleError(errorMessage: String) {
+        val queue = state.value.queue
+        queue.add(errorMessage)
+        state.value = state.value.copy(queue = queue)
     }
 }
 
