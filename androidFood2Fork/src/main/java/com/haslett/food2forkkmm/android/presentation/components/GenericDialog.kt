@@ -15,11 +15,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun GenericDialog(
     title: String,
-    description: String? = null
+    description: String? = null,
+    onRemoveHeadFromQueue: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = {
-            // todo remove from queue
+            onRemoveHeadFromQueue()
         },
         text = {
             if (description != null) {
@@ -40,29 +41,23 @@ fun GenericDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
+                horizontalArrangement = Arrangement.End,
+            ){
                 Button(
                     modifier = Modifier.padding(end = 8.dp),
                     onClick = {
-                        // todo remove from queue
+                        onRemoveHeadFromQueue()
                     }
                 ) {
-                    Text(
-                        text = "Cancel",
-                        style = MaterialTheme.typography.button
-                    )
+                    Text(text = "Cancel")
                 }
                 Button(
                     modifier = Modifier.padding(end = 8.dp),
                     onClick = {
-                        // todo remove from queue
+                        onRemoveHeadFromQueue()
                     }
                 ) {
-                    Text(
-                        text = "OK",
-                        style = MaterialTheme.typography.button
-                    )
+                    Text(text = "OK")
                 }
             }
         }

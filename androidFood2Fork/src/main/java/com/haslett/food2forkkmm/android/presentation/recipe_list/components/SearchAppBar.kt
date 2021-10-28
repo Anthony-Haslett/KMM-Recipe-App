@@ -27,7 +27,7 @@ import com.haslett.food2forkkmm.presentation.recipe_list.FoodCategoryUtil
 fun SearchAppBar(
     query: String,
     categories: List<FoodCategory>,
-    onQueryChange: (String) -> Unit,
+    onQueryChanged: (String) -> Unit,
     selectedCategory: FoodCategory? = null,
     onSelectedCategoryChanged: (FoodCategory) -> Unit,
     onExecuteSearch: () -> Unit
@@ -42,7 +42,7 @@ fun SearchAppBar(
             Row(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
                 TextField(
                     value = query,
-                    onValueChange = onQueryChange,
+                    onValueChange = onQueryChanged,
                     label = { Text(text = "Search") },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,

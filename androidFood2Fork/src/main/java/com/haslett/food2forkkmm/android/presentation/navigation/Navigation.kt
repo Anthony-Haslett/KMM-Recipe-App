@@ -21,7 +21,7 @@ import com.haslett.food2forkkmm.android.presentation.recipe_list.RecipeListViewM
 @ExperimentalMaterialApi
 @ExperimentalStdlibApi
 @Composable
-fun Navigation() {
+fun Navigation(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.RecipeList.route) {
         composable(route = Screen.RecipeList.route) { navBackStackEntry ->
@@ -31,7 +31,7 @@ fun Navigation() {
             RecipeListScreen(
                 state = viewModel.state.value,
                 onTriggerEvent = viewModel::onTriggerEvent,
-                onClickRecipeListItem = { recipeId ->
+                onSelectRecipe = { recipeId ->
                     navController.navigate("${Screen.RecipeDetail.route}/$recipeId")
                 }
             )

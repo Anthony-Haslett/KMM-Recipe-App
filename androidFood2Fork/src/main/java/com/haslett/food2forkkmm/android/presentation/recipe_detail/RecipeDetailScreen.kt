@@ -14,26 +14,34 @@ import com.haslett.food2forkkmm.android.presentation.recipe_detail.components.Re
 import com.haslett.food2forkkmm.android.presentation.theme.AppTheme
 import com.haslett.food2forkkmm.presentation.recipe_detail.RecipeDetailEvents
 import com.haslett.food2forkkmm.presentation.recipe_detail.RecipeDetailState
+import com.haslett.food2forkkmm.presentation.recipe_list.RecipeListEvents
 
-@ExperimentalStdlibApi
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
+@ExperimentalStdlibApi
 @Composable
 fun RecipeDetailScreen(
     state: RecipeDetailState,
-    onTriggerEvent: (RecipeDetailEvents) -> Unit
-) {
-    AppTheme(displayProgressBar = state.isLoading, dialogQueue = state.queue) {
-        if (state.recipe == null && state.isLoading) {
-            // Loading
+    onTriggerEvent: (RecipeDetailEvents) -> Unit, // this will be used later when we do the error handling
+){
+    AppTheme(
+        displayProgressBar = state.isLoading,
+        dialogQueue = state.queue,
+        onRemoveHeadMessageFromQueue = {
+            onTriggerEvent(RecipeDetailEvents.OnRemoveHeadMessageFromQueue)
+        }
+    ) {
+        if(state.recipe == null && state.isLoading){
             LoadingRecipeShimmer(imageHeight = RECIPE_IMAGE_HEIGHT.dp)
-        } else if (state.recipe == null) {
+        }
+        else if(state.recipe == null){
             Text(
-                text = "We were unable to retrieve the details for this recipe\nTry resetting the app",
                 modifier = Modifier.padding(16.dp),
+                text = "We were unable to retrieve the details for this recipe.\nTry resetting the app.",
                 style = MaterialTheme.typography.body1
             )
-        } else {
+        }
+        else{
             RecipeView(recipe = state.recipe!!)
         }
     }

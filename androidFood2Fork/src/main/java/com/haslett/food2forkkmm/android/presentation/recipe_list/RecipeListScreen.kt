@@ -12,36 +12,40 @@ import com.haslett.food2forkkmm.presentation.recipe_list.FoodCategoryUtil
 import com.haslett.food2forkkmm.presentation.recipe_list.RecipeListEvents
 import com.haslett.food2forkkmm.presentation.recipe_list.RecipeListState
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
 fun RecipeListScreen(
     state: RecipeListState,
     onTriggerEvent: (RecipeListEvents) -> Unit,
-    onClickRecipeListItem: (Int) -> Unit
-) {
+    onSelectRecipe: (Int) -> Unit,
+){
     AppTheme(
-        displayProgressBar = false,
-        dialogQueue = state.queue
+        displayProgressBar = state.isLoading,
+        dialogQueue = state.queue,
+        onRemoveHeadMessageFromQueue = {
+            onTriggerEvent(RecipeListEvents.OnRemoveHeadMessageFromQueue)
+        }
     ) {
-        val foodCategory = remember { FoodCategoryUtil().getAllFoodCategories() }
-        Scaffold(topBar = {
-            SearchAppBar(
-                query = state.query,
-                categories = foodCategory,
-                onSelectedCategoryChanged = {
-                    onTriggerEvent(RecipeListEvents.OnSelectCategory(it))
-                },
-                selectedCategory = state.selectedCategory,
-                onQueryChange = {
-                    onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
-                },
-                onExecuteSearch = {
-                    onTriggerEvent(RecipeListEvents.NewSearch)
-                },
-                
+        val foodCategories = remember{ FoodCategoryUtil().getAllFoodCategories()}
+        Scaffold(
+            topBar = {
+                SearchAppBar(
+                    query = state.query,
+                    onQueryChanged = {
+                        onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
+                    },
+                    onExecuteSearch = {
+                        onTriggerEvent(RecipeListEvents.NewSearch)
+                    },
+                    categories = foodCategories,
+                    selectedCategory = state.selectedCategory,
+                    onSelectedCategoryChanged = {
+                        onTriggerEvent(RecipeListEvents.OnSelectCategory(it))
+                    },
                 )
-        }) {
+            },
+        ) {
             RecipeList(
                 loading = state.isLoading,
                 recipes = state.recipes,
@@ -49,7 +53,7 @@ fun RecipeListScreen(
                 onTriggerNextPage = {
                     onTriggerEvent(RecipeListEvents.NextPage)
                 },
-                onClickRecipeListItem = onClickRecipeListItem
+                onClickRecipeListItem = onSelectRecipe
             )
         }
     }

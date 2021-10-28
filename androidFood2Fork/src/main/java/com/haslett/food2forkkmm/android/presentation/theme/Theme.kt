@@ -34,21 +34,25 @@ private val LightThemeColors = lightColors(
 fun AppTheme(
     displayProgressBar: Boolean,
     dialogQueue: Queue<GenericMessageInfo> = Queue(mutableListOf()),
+    onRemoveHeadMessageFromQueue: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colors = LightThemeColors,
         typography = QuickSandTypography,
         shapes = AppShapes
-    ) {
+    ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Grey1)
-        ) {
-            ProcessDialogQueue(dialogQueue)
+                .background(color =Grey1)
+        ){
+            ProcessDialogQueue(
+                dialogQueue = dialogQueue,
+                onRemoveHeadMessageFromQueue = onRemoveHeadMessageFromQueue,
+            )
             content()
-            CircularIndeterminateProgressBar(isDisplayed = displayProgressBar, verticalBias = 0.3f)
+            CircularIndeterminateProgressBar(isDisplayed = displayProgressBar, 0.3f)
         }
     }
 }
