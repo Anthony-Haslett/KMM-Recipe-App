@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.haslett.food2forkkmm.domain.model.GenericMessageInfo
-import com.haslett.food2forkkmm.domain.model.Recipe
-import com.haslett.food2forkkmm.domain.model.UIComponentType
+import com.haslett.food2forkkmm.domain.model.*
 import com.haslett.food2forkkmm.domain.util.GenericMessageInfoQueueUtil
 import com.haslett.food2forkkmm.domain.util.Queue
 import com.haslett.food2forkkmm.interactors.recipe_list.SearchRecipes
@@ -33,6 +31,32 @@ constructor(
     
     init {
         onTriggerEvent(RecipeListEvents.LoadRecipes)
+        
+        val messageInfoBuilder = GenericMessageInfo.Builder()
+            .id(UUID.randomUUID().toString())
+            .title("Stuff")
+            .uiComponentType(UIComponentType.Dialog)
+            .description("What is going on?")
+            .positive(
+                PositiveAction(
+                    positiveBtnTxt = "COOL",
+                    onPositiveAction = {
+                        // do something special
+                        state.value = state.value.copy(query = "Kale")
+                        onTriggerEvent(RecipeListEvents.NewSearch)
+                    },
+                )
+            )
+            .negative(
+                NegativeAction(
+                    negativeBtnTxt = "CANCEL",
+                    onNegativeAction = {
+                        state.value = state.value.copy(query = "Cookies")
+                        onTriggerEvent(RecipeListEvents.NewSearch)
+                    }
+                )
+            )
+        appendToMessageQueue(messageInfo = messageInfoBuilder)
     }
     
     fun onTriggerEvent(event: RecipeListEvents) {
